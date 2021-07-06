@@ -3,6 +3,9 @@
 import subprocess
 import os
 import shutil
+import config
+print('  Target FWHM:', config.v)
+
 from statistics import geometric_mean
 from statistics import stdev
 from tkinter import Tk, filedialog

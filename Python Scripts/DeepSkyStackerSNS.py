@@ -3,6 +3,10 @@
 import subprocess
 import os
 import shutil
+import config
+print('  Target FWHM:', config.v)
+
+
 from statistics import geometric_mean
 from statistics import stdev
 from tkinter import Tk, filedialog
@@ -19,7 +23,7 @@ DarkImages = []
 FlatsImages = []
 DarkFlatsImages = []
 PixelScale = 0
-Goal_Post = 7.5
+Goal_Post = config.v
 SupportedFileFormats = ("crw", "cr2", "cr3", "nef", "raf", "dng", "kdc", "dcr", "fits")
 
 if os.path.isfile((Directory + "/info.txt")):

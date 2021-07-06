@@ -1,0 +1,1 @@
+#"open_file = filedialog.askdirectory()" variable can be passed to this file  from GUI.py and all scripts can pick it up from this location
