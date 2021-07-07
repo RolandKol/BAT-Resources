@@ -56,6 +56,6 @@ mywin = MyWindow(window)
 window.title('Batmobile Garage')
 window.geometry("800x250+10+10")
 
-# centering window
-window.eval('tk::PlaceWindow %s center' % window.winfo_pathname(window.winfo_id()))
+# centering window - does not work on Windows
+#window.eval('tk::PlaceWindow %s center' % window.winfo_pathname(window.winfo_id()))
 window.mainloop()
