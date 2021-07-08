@@ -5,7 +5,10 @@
 import sys
 import os
 import config
-print('  Target FWHM:', config.v)
+from timeit import default_timer as timer
+
+start = timer()
+print('\n >>>>  SIRIL Target FWHM:', config.v, ' <<<<', '\n  ')
 
 from pysiril.siril import *
 from pysiril.wrapper import *
@@ -135,8 +138,13 @@ try:
     light(workdir + '/lights', process_dir, hasflats, hasdarks, hasbias)
 
 except Exception as e:
+    end = timer()
     print("\n**** ERROR *** " + str(e) + "\n")
-
+    print('\n >>>> Failed, - SIRIL worked ', round(end - start,2),'seconds or ',round((end - start)/60,2),'minutes <<<<', '\n     ')
+    app.Close()
+    del app
 # 6. Closing Siril and deleting Siril instance
+end = timer()
+print('\n >>>> SIRIL worked ', round(end - start,2),'seconds or ',round((end - start)/60,2),'minutes <<<<', '\n     ')
 app.Close()
-del app
+

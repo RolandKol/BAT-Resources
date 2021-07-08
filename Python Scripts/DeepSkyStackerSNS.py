@@ -4,7 +4,11 @@ import subprocess
 import os
 import shutil
 import config
-print('  Target FWHM:', config.v)
+from timeit import default_timer as timer
+
+start = timer()
+
+print('\n >>>>  DSS Target FWHM:', config.v, ' <<<<', '\n  ')
 
 
 from statistics import geometric_mean
@@ -205,12 +209,20 @@ if len(FilelistResults) != 0:
     # Call Deep Sky Stacker to Stack Images
     file_list_loc = str(os.path.join(Directory.replace('/', '\\') + os.sep, 'SNSStackingFilelist.txt'))
     tile_save_loc = str(os.path.join(Directory.replace('/', '\\') + os.sep, 'SNSDSSTile.tif'))
-    subprocess.call(
-        '"C:\\Program Files\\DeepSkyStacker (64 bit)\\DeepSkyStackerCL.exe"' + ' /S "' + file_list_loc + '"')
+    p = subprocess.Popen('"C:\\Program Files\\DeepSkyStacker (64 bit)\\DeepSkyStackerCL.exe"' + ' /S "' + file_list_loc + '"')
+    #subprocess.call(
+        #"C:\\Program Files\\DeepSkyStacker (64 bit)\\DeepSkyStackerCL.exe"' + ' /S "' + file_list_loc + '"')
+    
     if os.path.isfile(str(os.path.join(Directory.replace('/', '\\') + os.sep, 'Lights\\Autosave.tif'))):
         shutil.move(str(os.path.join(Directory.replace('/', '\\') + os.sep, 'Lights\\Autosave.tif')), tile_save_loc)
     if os.path.isfile(str(os.path.join(Directory.replace('/', '\\') + os.sep, 'Lights\\SNSStackingFilelist.tif'))):
         shutil.move(str(os.path.join(Directory.replace('/', '\\') + os.sep, 'Lights\\SNSStackingFilelist.tif')),
                     tile_save_loc)
+    p.terminate()
+    end = timer()
+    print('\n >>>> DSS worked ', round(end - start,2),'seconds or ',round((end - start)/60,2),'minutes <<<<', '\n     ')
 else:
-    print("All Files Failed to Meet the Goal Post")
+    end = timer()
+    print('\n >>>> Nothing to Stack! DSS worked ', round(end - start,2),'seconds or ',round((end - start)/60,2),'minutes <<<<', '\n     ')
+    print(" >>>> All Files Failed to Meet the Goal Post <<<<")
+    
