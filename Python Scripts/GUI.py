@@ -4,6 +4,9 @@
 
 
 import config
+#import importlib
+import sys
+import os
 from tkinter import filedialog
 from tkinter import *
 
@@ -44,10 +47,15 @@ class MyWindow:
         #DeepSkyStackerSNS_Filter.main()
 
     def siril(self):
+        import config
         config.v = float(self.t1.get())  ## Store current entry value in shared module
         config.open_file = filedialog.askdirectory()  # saving Folder address as "open_file" variable to config.py
-        import SirilSNS
-        #SirilSNS.main()
+        try:
+            del sys.modules["SirilSNS"]
+            from SirilSNS import main
+        except:
+            from SirilSNS import main
+
 
 
 # main window settings
