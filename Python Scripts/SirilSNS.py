@@ -147,4 +147,4 @@ except Exception as e:
 end = timer()
 print('\n >>>> SIRIL worked ', round(end - start,2),'seconds or ',round((end - start)/60,2),'minutes <<<<', '\n     ')
 app.Close()
-
+del app
